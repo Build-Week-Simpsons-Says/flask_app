@@ -13,7 +13,7 @@ df0 = pd.read_csv('simpsons_dataset.csv')
 df = df0.dropna().copy()
 
 # creates natural language processor
-nlp = spacy.load('en_core_web_lg')
+nlp = spacy.load('en_core_web_md')
 
 # creates set of stopwords
 STOPWORDS = nlp.Defaults.stop_words.union({' ', '', 've'})
