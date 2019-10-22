@@ -2,7 +2,15 @@
 website"""
 
 # Imports
-from flask import Flask, request
+from flask import Flask, Response, request, jsonify
+from .predict import *
+
+error_msg = f'''
+            Something broke!
+            Use the / or /years endpoints to get a list
+            of possible values.
+            '''
+
 
 def create_app():
     """create and configures an instance of a flask app"""
@@ -11,10 +19,21 @@ def create_app():
     @app.route('/')
     def root():
         return "App home page"
-    return app
 
-    @app.route('/input', methods=['POST'])
-    @app.route('/input/<text>', methods=['GET'])
-    def text():
-        test_text = text
-        return "You tried {} and the model gave it back".format(test_text)
+    # @app.route('/input', methods=['POST'])
+    @app.route('/input', methods=['GET'])
+    def retrieval():
+        try:
+            if request.method == 'GET':
+                text = request.args.get('input_text')  # If no key then null
+                output = get_quote(text)
+                return output  # This is now the input variable into the model
+        except Exception as e:
+            # Unfortunately I'm not going to wrap this in indv. strings
+            r = Response(response=error_msg+str(e),
+                         status=404,
+                         mimetype="application/xml")
+            r.headers["Content-Type"] = "text/xml; charset=utf-8"
+            return r
+
+    return app
