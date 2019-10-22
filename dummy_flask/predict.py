@@ -29,16 +29,25 @@ nn_model.fit(dense_df)
 def get_quote(input_text):
     '''
     function to find most similar quote to input text
+    if input text is blank, a quote is chosen at random
     '''
 
-    # creates vector of input text
-    quote_vec = tfidf.transform([input_text])
+    if input_text == '':
 
-    # gets the index for the most similar quote to the input text
-    similar_index = nn_model.kneighbors(quote_vec.todense())[1][0][0]
+        # gets the index of a random quote in the DataFrame
+        rand_index = np.random.randint(len(df))
 
-    # gets the quote from the dataframe
-    output_quote = df['spoken_words'][similar_index]
+        # gets the quote for that index and retunrs it
+        rand_quote = df['spoken_words'][rand_index]
+        return(rand_quote)
 
-    # returns quote
-    return(output_quote)
+    else:
+        # creates vector of input text
+        quote_vec = tfidf.transform([input_text])
+
+        # gets the index for the most similar quote to the input text
+        similar_index = nn_model.kneighbors(quote_vec.todense())[1][0][0]
+
+        # gets the quote from the dataframe and returns it
+        output_quote = df['spoken_words'][similar_index]
+        return(output_quote)
