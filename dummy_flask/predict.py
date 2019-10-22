@@ -7,7 +7,10 @@ from sklearn.neighbors import NearestNeighbors
 df = pd.read_csv('filtered_dataset.csv')
 
 # creates vectorizer
-tfidf = TfidfVectorizer(stop_words='english', min_df=0.01, max_df=0.80)
+tfidf = TfidfVectorizer(stop_words='english',
+                        min_df=0.01,
+                        max_df=0.80,
+                        ngram_range=(1, 3))
 
 # creates sparse matrix of lemmas
 sparse = tfidf.fit_transform(df['spoken_words'])
