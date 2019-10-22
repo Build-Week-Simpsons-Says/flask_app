@@ -91,3 +91,14 @@ def get_quote(input_text):
 
     # returns quote
     return(output_quote)
+
+# creates vector of input text
+quote_vec = tfidf.transform([''])
+
+# gets the index for the most similar quote to the input text
+similar_index = nn_model.kneighbors(quote_vec.todense())[1][0][0]
+
+# gets the quote from the dataframe
+output_quote = df_filtered['spoken_words'][similar_index]
+
+similar_index
