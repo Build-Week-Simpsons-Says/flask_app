@@ -1,1 +1,1 @@
-web: gunicorn twitsoff:APP -t 120
+web: gunicorn dummy_flask:APP -t 120
