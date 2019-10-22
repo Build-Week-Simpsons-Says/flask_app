@@ -39,6 +39,3 @@ def get_quote(input_text):
 
     # returns quote
     return(output_quote)
-
-
-get_quote('oh this')
