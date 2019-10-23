@@ -33,7 +33,7 @@ def create_app():
             r = Response(response=error_msg+str(e),
                          status=404,
                          mimetype="application/xml")
-            r.headers["Content-Type"] = "text/xml; charset=utf-8"
+            r.headers["Content-Type"] = "text/json; charset=utf-8"
             return r
 
     return app
