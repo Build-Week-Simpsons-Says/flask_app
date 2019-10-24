@@ -30,3 +30,5 @@ nn_model.fit(dense_df)
 # pickles the models for use in app to avoid training more than once
 dump(tfidf, 'tfidf.joblib')
 dump(nn_model, 'nn_model.joblib')
+
+np.array(dense_df.columns)
