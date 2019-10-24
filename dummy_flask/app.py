@@ -3,6 +3,7 @@ website"""
 
 # Imports
 from flask import Flask, Response, request, jsonify
+from flask_cors import CORS
 from .predict import *
 
 error_msg = f'''
@@ -15,6 +16,9 @@ error_msg = f'''
 def create_app():
     """create and configures an instance of a flask app"""
     app = Flask(__name__)
+
+    # Wrap application in CORS to avoid front end issues ? maybe?
+    CORS(app)
 
     @app.route('/')
     def root():
